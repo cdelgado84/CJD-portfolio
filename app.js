@@ -224,29 +224,78 @@ const scrollAnimations = {
         if (!('IntersectionObserver' in window)) return;
 
         const options = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
+            threshold: 0.15,
+            rootMargin: '0px 0px -80px 0px'
         };
 
         this.observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     entry.target.style.opacity = '1';
-                    entry.target.style.transform = 'translateY(0)';
+                    entry.target.style.transform = 'translateX(0) translateY(0)';
+
+                    // Add a slight delay based on element index for stagger effect
+                    const delay = entry.target.dataset.animationDelay || 0;
+                    entry.target.style.transitionDelay = `${delay}ms`;
                 }
             });
         }, options);
 
-        // Observe animated elements
-        const animatedElements = document.querySelectorAll('.timeline-item, .project-card, .skill-category');
-        animatedElements.forEach((el, index) => {
+        // Animate timeline items with alternating directions
+        const timelineItems = document.querySelectorAll('.timeline-item');
+        timelineItems.forEach((el, index) => {
+            // Determine if item is on left or right (odd/even)
+            const isOdd = (index + 1) % 2 === 1;
+            const translateX = window.innerWidth > 968 ? (isOdd ? '-50px' : '50px') : '0';
+
             // Set initial state
             el.style.opacity = '0';
-            el.style.transform = 'translateY(30px)';
-            el.style.transition = `opacity 0.6s ease-out ${index * 0.1}s, transform 0.6s ease-out ${index * 0.1}s`;
+            el.style.transform = `translateX(${translateX}) translateY(30px)`;
+            el.style.transition = 'opacity 0.7s ease-out, transform 0.7s ease-out';
+            el.dataset.animationDelay = index * 100;
 
             this.observer.observe(el);
         });
+
+        // Animate project cards
+        const projectCards = document.querySelectorAll('.project-card');
+        projectCards.forEach((el, index) => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(40px)';
+            el.style.transition = 'opacity 0.6s ease-out, transform 0.6s ease-out';
+            el.dataset.animationDelay = index * 100;
+
+            this.observer.observe(el);
+        });
+
+        // Animate skill categories
+        const skillCategories = document.querySelectorAll('.skill-category');
+        skillCategories.forEach((el, index) => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(30px)';
+            el.style.transition = 'opacity 0.5s ease-out, transform 0.5s ease-out';
+            el.dataset.animationDelay = index * 80;
+
+            this.observer.observe(el);
+        });
+
+        // Animate about section elements
+        const aboutPhoto = document.querySelector('.about-photo');
+        const aboutText = document.querySelector('.about-text');
+
+        if (aboutPhoto) {
+            aboutPhoto.style.opacity = '0';
+            aboutPhoto.style.transform = 'translateX(-30px)';
+            aboutPhoto.style.transition = 'opacity 0.8s ease-out, transform 0.8s ease-out';
+            this.observer.observe(aboutPhoto);
+        }
+
+        if (aboutText) {
+            aboutText.style.opacity = '0';
+            aboutText.style.transform = 'translateX(30px)';
+            aboutText.style.transition = 'opacity 0.8s ease-out 0.2s, transform 0.8s ease-out 0.2s';
+            this.observer.observe(aboutText);
+        }
     }
 };
 
