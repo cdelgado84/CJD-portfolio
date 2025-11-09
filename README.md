@@ -82,3 +82,10 @@ Once generated:
 2. Replace placeholder data (name, experience, projects, etc.).
 3. Optimize for mobile and performance.
 4. Add actual CV PDF file and correct contact links.
+
+
+## 📎 Reference Material
+I've attached my CV file (`Christian_Delgado_Resume.pdf`) in this repository.  
+Use it as the content source for the text that appears on the website (about me, experience, projects, skills).  
+Summarize or adapt the wording to make it natural for a modern web portfolio.
+
