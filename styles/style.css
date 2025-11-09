@@ -242,14 +242,22 @@ a:focus-visible {
 }
 
 .logo {
-    font-size: var(--font-size-2xl);
-    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     color: var(--accent-primary);
-    transition: transform var(--transition-base);
+    transition: transform var(--transition-base), opacity var(--transition-base);
+}
+
+.logo i {
+    font-size: 1.2rem;
+    display: flex;
+    align-items: center;
 }
 
 .logo:hover {
-    transform: scale(1.05);
+    transform: scale(1.15);
+    opacity: 0.8;
 }
 
 .nav-menu {
