@@ -580,6 +580,18 @@ const easterEggs = {
 };
 
 // ====================================
+// Footer Year Update
+// ====================================
+const footerYear = {
+    init() {
+        const yearElement = document.getElementById('year');
+        if (yearElement) {
+            yearElement.textContent = new Date().getFullYear();
+        }
+    }
+};
+
+// ====================================
 // Initialization
 // ====================================
 const app = {
@@ -596,6 +608,7 @@ const app = {
         accessibility.init();
         analytics.init();
         easterEggs.init();
+        footerYear.init();
 
         // Log initialization
         console.log('Portfolio website initialized successfully! 🚀');
